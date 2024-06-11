@@ -1,0 +1,534 @@
+---
+title: "Student exercises"
+format: 
+    html:
+        embed-resources: true
+        toc: true
+editor: visual
+---
+
+<!--# This is the version with all the answers. Need to create a student version with solutions removed. -->
+
+## Introduction
+
+🧬🧪 **Welcome to the bioinformatics work experience session!** 💻
+
+In this workshop, we will delve into a field that combines biology, statistics, and computer science to unlock the secrets hidden within biological data 🔍
+
+In bioinformatics, coding is a fundamental skill to allow us to extract meaningful insights from complex datasets. During this workshop, we will be using `R`, a coding language often used by bioinformaticians.
+
+The best part is, once you gain proficiency in one coding language, the skills can be transferable to others.
+
+Our aim for this session is to provide you with a glimpse into bioinformatics tools to analyse microbiome data using a real-life dataset from the vaginal microbiome.
+
+## Getting started and running code
+
+For today's session, we will be working together to write some code to analyse some data. We can use it like a calculator by typing math into the console.
+
+Open up your R script and follow along with some of these exercises.
+
+```{r}
+2+5
+```
+
+```{r}
+12/3
+```
+
+::: {.callout-important appearance="simple" icon="false"}
+🛑 **Checkpoint**
+
+Have you found and opened the `student_exercises.R` file on your computer?
+
+Can you type in the equations and see an output in the console?
+
+🙋 If you have a question at any point of the workshop please let an instructor know and we will come around to help.
+:::
+
+```{r}
+# We can also comment on what it is that we are doing
+# This is done by putting a `#` at the beginning of the line
+
+# I am multiplying 8 and 19
+8*19
+```
+
+::: {.callout-note appearance="simple" icon="false"}
+**👉 Over to you!**
+
+Can you write a line of code to calculate 1260/36?
+:::
+
+```{r}
+1260/36
+```
+
+We can assign values to objects. To do this, we create an object choosing a name, followed by `<-`, and the value we want to assign.
+
+```{r}
+age_months <- 24
+```
+
+Using the `print` function, we can return the value we assigned to the object
+
+```{r}
+print(age_months)
+```
+
+We can also calculate new values and assign them to new objects. For example, if we wanted to work out the age in years, we would divde the object `age_months` by 12
+
+```{r}
+age_months/12
+```
+
+Great! We can see that our age of 24 months is and age of 2 years.
+
+We could update the code so that it calculates the age in years, and save as a new object called `age_years`
+
+```{r}
+age_years <- age_months/12
+```
+
+::: {.callout-note appearance="simple" icon="false"}
+**👉 Over to you!**
+
+Can you print the value of the age_years? Hint: you can use the `print` function for this.
+:::
+
+```{r}
+print(age_years)
+```
+
+🙌 Nice work!
+
+If you are stuck at any point, please raise your hand and one of the instructors will come around to help.
+
+If you are already familiar with `R` or another coding language, we have included some extra challenges in the worksheet for you to try during the session. Look out for the green boxes throughout the worksheet for these.
+
+::: {.callout-tip appearance="simple" icon="false"}
+📝 **Challenge 1**
+
+a\) Assign the result of the sum of 12 and 82 to a variable named `number_of_bacteria`
+
+b\) Print the value of `number_of_bacteria`
+
+c\) Divide `number_of_bacteria` by 5
+:::
+
+```{r}
+# Challenge 1
+number_of_bacteria <- 12 + 82
+print(number_of_bacteria)
+number_of_bacteria/5
+
+```
+
+Next let's move onto R packages!
+
+## R packages
+
+Packages in R are collections of functions that have been developed. Many of these have been developed by the community. For today's session, we will be using a number of these community-developed packages to help us with our analyses.
+
+We will begin by installing the [tidyverse package](https://tidyverse.tidyverse.org/) using the code below. Note that this is quite a large package, so it may take a while to install!
+
+```{r}
+# install.packages("tidyverse")
+```
+
+Once this has been installed, load the `tidyverse` package
+
+```{r}
+library(tidyverse)
+```
+
+*A note on conflicts in R: This can occur when loading packages into R. It tells us when functions from different packages have the same names. In general, this is not something to worry about but if you want be sure you are using the correct function from your package of choice you can always use qualified imports in your code, e.g., stats::filter() or dplyr::filter().*
+
+::: {.callout-important appearance="simple" icon="false"}
+🛑 **Checkpoint**
+
+Have you successfully loaded the `tidyverse` library?
+
+Please let an instructor know if you have any questions.
+:::
+
+## Introducing preterm birth and the dataset
+
+Today, we will be using a publicly available dataset looking at the vaginal microbiota in preterm birth. The results of the author's research has been published in a peer reviewed journal. If you are interested, you can read the original article by Callahan et al., [here](https://www.pnas.org/doi/10.1073/pnas.1705899114#executive-summary-abstract).
+
+### What is preterm birth?
+
+::: {.callout-caution appearance="simple" icon="false"}
+In obstetrics, the length of a pregnancy is often referred to as gestation in weeks+days.
+
+❓ How long does a human pregnancy usually last? Do you know what this is as gestation (in weeks+days)?
+:::
+
+🤰Preterm birth is when a baby is born before 37 weeks of pregnancy. It is estimated that over 13 million babies are born prematurely each year. Being born preterm increases risk of child illness and child death in children under 5 years old.
+
+### Why does preterm birth happen?
+
+It is still unknown why preterm birth occurs and birth can be linked to multiple causes. Most preterm births happen spontaneously, and others can be due to medical conditions such as infections or complications during pregnancy.
+
+There are many researchers working to understand how we may be able to identify someone at risk of preterm birth. This is very helpful as we can provide early treatment for women to reduce the likelihood of baby being born early.
+
+The dataset we are using today are from researchers understanding the differences in the vaginal microbiota 🦠 by using techniques to sequence the bacterial DNA. They look at this data to see how there may be changes in the bacterial composition between women who have a preterm birth. In this session, we will become data detectives and see if we can identify any interesting insights from this dataset to help us better understand the relationship between the microbiota and preterm birth🕵️.
+
+### Exploring the dataset
+
+First, we will need to begin by loading our dataset. We will begin by looking at some anonymised information about the study participants including their age, BMI, and whether they had a preterm or term birth. This type of data is often called the metadata. When doing research, it's important to make sure you are familiar with the data that you are working with.
+
+```{r}
+metadata <- read.csv('metadata.csv', header = TRUE, row.names = 1)
+```
+
+To check the data has been correctly loaded, we can look at the first few rows of the dataframe:
+
+```{r}
+head(metadata)
+```
+
+::: {.callout-important appearance="simple" icon="false"}
+🛑 **Checkpoint** Have you successfully loaded your data? Can you see the first few rows of the data in your console?
+:::
+
+You can also check the number of rows and columns in the dataframe:
+
+```{r}
+dim(metadata)
+```
+
+Here, the function `dim` is returning the dimensions of our dataframe. The two numbers tells us the number of rows (100) and columns (14) of the dataframe.
+
+::: {.callout-note appearance="simple" icon="false"}
+👉 **Over to you!**
+
+In your own `student_exercises.R` script, can you run the code below and interpret the output?
+
+``` r
+colnames(metadata)
+summary(metadata)
+```
+:::
+
+::: {.callout-caution appearance="simple" icon="false"}
+Looking at the output from the `summary` function, can you answer these questions?
+
+❓What was the lowest birth weight in this cohort?
+
+❓What was the mean birth length?
+
+❓How many participants don't have BMI data recorded? *(hint: NA represents missing data)*
+:::
+
+The `Outcome` variable allows us to see how many participants had preterm vs term deliveries
+
+```{r}
+table(metadata$Outcome)
+```
+
+::: {.callout-note appearance="simple" icon="false"}
+👉 **Over to you!**
+
+We can see `DeliveryMode` is available in this dataset. Using the `table` function, can you to summarise the different modes of delivery observed?
+:::
+
+```{r}
+table(metadata$DeliveryMode)
+```
+
+::: {.callout-tip appearance="simple" icon="false"}
+📝 **Challenge 2**
+
+Using the `table` function, write some code to answer the following questions
+
+a)  How many participants had gestational diabetes?
+b)  What was the distribution of self-reported race in this cohort?
+:::
+
+```{r}
+# Challenge 2 
+table(metadata$Outcome)
+table(metadata$Race)
+```
+
+### Plotting the data
+
+Another useful thing to do is to plot some of the values we have in the dataset. Visualising information as graphs 📊 can be very helpful!
+
+One question we may want to ask is what the different modes of delivery by birth outcome are.
+
+One option is to create a table with `Outcome` and `DeliveryMode`:
+
+```{r}
+table(metadata$Outcome, metadata$DeliveryMode)
+```
+
+We can see from the table there were more normal spontaneous vaginal deliveries in the term group compared to the preterm group (34 vs 26).
+
+Instead of using tables, we could also show this information using a bar graph. Run the code below to generate a bar graph of the same data we have shown in the table above.
+
+```{r}
+ggplot(metadata, aes(x = Outcome, fill = DeliveryMode)) + geom_bar(position = "dodge") + geom_text(aes(label = after_stat(count)), stat = 'count', position = position_dodge(0.9), vjust = -0.2) + labs(x = "Outcome", y = "Count", fill = "Delivery")
+```
+
+::: {.callout-important appearance="simple" icon="false"}
+🛑 **Checkpoint**
+
+Have you been able to generate a graph using the code provided?
+:::
+
+::: {.callout-caution appearance="simple" icon="false"}
+Take a look at the table and the graph showing delivery mode by preterm vs term delivery.
+
+❓Which one is easier to interpret? Why?
+
+❓Which group is more likely to deliver by C-section?
+:::
+
+::: {.callout-tip appearance="simple" icon="false"}
+📝 **Challenge 3**
+
+The bar graph has been produced using the package `ggplot`. It has a number of different options to format the graph. Using this as your guide, try to create the following plots:
+
+a)  For the delivery mode by birth outcome plot, change the y-axis from "Count" to "Number of deliveries" and plot this new graph?
+b)  Plot race by birth outcome (*Hint: there will be more than one part of the code you need to change for this*)
+:::
+
+```{r}
+# Challenge 3
+ggplot(metadata, aes(x = Outcome, fill = DeliveryMode)) + geom_bar(position = "dodge") + geom_text(aes(label = after_stat(count)), stat = 'count', position = position_dodge(0.9), vjust = -0.2) + labs(x = "Outcome", y = "Number of deliveries", fill = "Delivery")
+
+ggplot(metadata, aes(x = Outcome, fill = Race)) + geom_bar(position = "dodge") + geom_text(aes(label = after_stat(count)), stat = 'count', position = position_dodge(0.9), vjust = -0.2) + labs(x = "Outcome", y = "Count", fill = "Race")
+```
+
+A boxplot is another useful plot we can use to visualise data. It helps us look at the spread and any potential skew. This is because it is divided into quartiles where:
+
+-   Q0 = Minimum. Lowest data point (excluding any outliers)
+
+-   Q1: Lower quartile (25th percentile). Median of the lower half of the dataset.
+
+-   Q2 = Median. Middle value
+
+-   Q3: Upper quartile (75th percentile). Median of the upper half of the dataset
+
+-   Q4 = Maximum. Highest data point (excluding any outliers).
+
+Body mass index (BMI) is used as a measure of body weight relative height, and is calculated using the formula: \$\\frac {weight (kg)}{height (m)\^{2}}\$
+
+We could use a box plot to investigate whether there is a difference in BMI between women who deliver preterm vs term.
+
+```{r}
+metadata %>%
+  drop_na(BMI) %>%
+  ggplot(aes(x=Outcome, y=BMI)) +
+  geom_boxplot(outlier.colour="black", outlier.shape=8,
+               outlier.size=2)
+```
+
+::: {.callout-caution appearance="simple" icon="false"}
+Looking at the box plot comparing BMI in women who delivered preterm vs term
+
+❓Which of the two groups appears to have a higher median BMI
+
+<!--# update questions below based on if we keep statistical tests below -->
+
+❓Is there a way we can formally test if the difference is real
+
+❓Can you propose a suitable null hypothesis (where there is no difference between the two groups)
+:::
+
+### Statistical tests
+
+<!--# needs review/or remove completely... also remove the questions in the callout about statistical tests if removed. -->
+
+In research, we often formulate a null hypothesis and use statistics to see whether we can reject the null hypothesis. In the example above, our null hypothesis is there is no difference BMI between the two groups (women who delivery preterm vs term).
+
+We can use a t-test to understand if the difference in BMI is statistically significant. In R,we can use the `t.test` function.
+
+```{r}
+t.test(BMI ~ Outcome, data = metadata, na.action = na.omit)
+
+```
+
+We can see the results of the t-test has a lot of different numbers included. Let's try to break this down:
+
+-   The mean BMI in the preterm group is 31.55
+
+-   The mean BMI is the term group is 28.41
+
+The p-value is \>0.05, which means we do not reject the null hypothesis (and cannot claim a statistically significant difference in BMI between the two groups). The 95% confidence interval suggests that the true difference in the two groups is between -1.65 and 7.96.
+
+## Understanding the vaginal microbiota in preterm birth
+
+In the study of microbiology and microbiomes, including the vaginal microbiome, researchers often analyse the composition of microbial communities by identifying and categorising the microorganisms present based on their taxonomic classification.
+
+::: {.callout-caution appearance="simple" icon="false"}
+Taxonomic classification is a system to help understand the diversity and relationship between different microorganisms.
+
+❓Can you name some of the levels of the taxonomic hierarchy
+
+❓Which is the broadest of these?
+
+❓Which is the most specific?
+:::
+
+![By Annina Breen - Own work This file was derived from: Rotfuchs.svg, CC BY-SA 4.0, https://commons.wikimedia.org/w/index.php?curid=40559754](images/Taxonomic_Rank_Graph.svg.png)
+
+Researchers have been studying the potential link between the vaginal microbiome and preterm birth, aiming to understand if microbial imbalances may contribute to an increased risk of preterm birth.
+
+<!--# Is this information at the right level for students to understand? Is it too much material to cover in the timeframe we have available... -->
+
+## Next generation sequencing
+
+Next-generation sequencing technologies have developed over the past 15-20 years and allows us to take DNA from a sample and sequence this.
+
+The data that we are working with today has been sequenced from the vaginal microbiota using NGS. Let's take a look at this data and integrate it with the metadata we were looking at earlier.
+
+## Operational Taxonomic Units (OTUs)
+
+OTUs are groups of microorganisms that are similar to each other based on their genetic information. They are created by clustering sequences together that share a certain level of similarity. OTUs are used to represent different types of microorganisms in a microbial community.
+
+Think of OTUs as groups of similar microorganisms, like a club where members have similar characteristics. Each OTU has a representative member that stands in for all the other members in that group. OTUs are helpful when it's difficult to identify individual species in a diverse microbial community.
+
+![Maki, Katherine & Kazmi, Narjis & Barb, Jennifer & Ames, Nancy (2020). 10.1177/1099800420941606.](images/Taxonomic-classification-of-bacteria-from-phylum-to-strain-level.png)
+
+::: {.callout-note appearance="simple" icon="false"}
+👉 **Over to you!**
+
+In your own R script, import the `otu.csv` file:
+
+`otu <- read.csv('otu.csv', row.names = 1)`
+
+Look at the first few rows of data:
+
+`head(otu)`
+:::
+
+```{r}
+# otu <- read.csv('otu.csv', row.names = 1)
+# head(otu)
+```
+
+<!--# Either add a screenshot of the csv file here in a readable format or show this live during the workshop to explain the table format? -->
+
+## Taxonomy Tables
+
+Taxonomy tables are like name tags that tell us the classification of each OTU. They show the taxonomic labels or names associated with each OTU, indicating their hierarchical position in the classification system (e.g., phylum, class, order, etc.).
+
+Taxonomy tables help us understand what kinds of microorganisms are present in a microbial community. They provide information about the taxonomic composition and diversity, helping us identify the different groups of microorganisms that are part of the community.
+
+Let's have a look at the taxonomy table we will be using to assign our OTUs.
+
+::: {.callout-note appearance="simple" icon="false"}
+👉 **Over to you!**
+
+In your own R script:
+
+1.  Import the `taxonomy.csv` file, and assign it with the name `taxonomy`
+2.  Look at the first few rows of data
+:::
+
+```{r}
+# taxonomy <- read.csv('taxonomy.csv', header = TRUE, row.names = 1)
+# head(taxonomy)
+```
+
+The first column is the OTU sequence - similar to what we saw earlier in the `otu.csv` file. If you scroll to the right, you can see that each of these are assigned to their taxonomic ranks.
+
+In summary, OTUs are groups of similar microorganisms, and taxonomy tables tell us the names and categories of those groups. Together, they help us understand the types and diversity of microorganisms in a microbial community.
+
+## Diving into the microbiota data
+
+Using the OTU and taxonomy table you see above, we can start to get a glimpse of the all the DNA that has been sequenced using NGS technologies.
+
+*A note on using phyloseq to handle the microbiota data: `Phyloseq` is a package designed for the analysis and exploration of microbiota data. It helps us with importing, organizing, manipulating, and visualizing high-throughput sequencing data, particularly data obtained from 16S rRNA gene sequencing or metagenomic sequencing.*
+
+::: {.callout-note appearance="simple" icon="false"}
+👉 **Over to you!**
+
+Because manipulating the data can be computationally intensive, we won't be running `phyloseq` in today's workshop as it may take a lot of time ⌛. To save us waiting, here's a file we prepared earlier called `ps_phyla.csv`
+
+In your own R script:
+
+1.  Import the `ps_phyla.csv` file, and assign it with the name `ps_phyla`
+2.  Look at the first few rows of data
+:::
+
+```{r}
+ps_phyla <- read.csv('ps_phyla.csv', header = TRUE, row.names = 1) 
+head(ps_phyla)
+```
+
+::: {.callout-caution appearance="simple" icon="false"}
+Look at the first few rows of data of the `ps_phyla` dataframe.
+
+❓Do some of the columns look familiar to you?
+:::
+
+::: {.callout-caution appearance="simple" icon="false"}
+🛑 **Checkpoint**
+
+Have you loaded the `ps_phyla` dataframe and can you see the first few rows?
+:::
+
+This has combined the information we saw earlier from the metadata spreadsheet (e.g. birth outcome, delivery mode, BMI) with some new columns.
+
+For each row, we can see that there is a sample ID, which has information on abundance and phylum. We can use this to plot the the abundance of a few of the most abundant phyla in the microbiome.
+
+```{r}
+color_set <- c("coral1","orange", "darkgoldenrod", "chartreuse4", "springgreen3", "darkgreen", "darkslategray1", "deepskyblue", "deepskyblue4", "darkorchid1", "deeppink", "deeppink4")
+ggplot(ps_phyla, aes(x =factor(SubjectID), y =Abundance , fill = Phylum)) +
+  geom_bar(stat = "identity", position = "fill") +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+  guides(fill = guide_legend(reverse = FALSE, keywidth = 1, keyheight = 1, ncol = 1)) +
+  ylab("Abundance") +
+  xlab("Sample number")+
+  scale_fill_manual(values = color_set)
+```
+
+Let's break down the graph above. On the x-axis we can see all of the sample numbers. Each bar represents one participant sample. The size of each colored section within the bar indicates the abundance (or amount) of that particular phylum in the sample.
+
+::: {.callout-warning appearance="simple" icon="false"}
+🛑 **Checkpoint**
+
+Can you generate the same graph of the abundance of each phylum in each sample?
+:::
+
+::: {.callout-caution appearance="simple" icon="false"}
+Look at the graph with abundance of each phylum by sample.
+
+❓Name some of the most abundant phyla we can see in the vaginal microbiota in these participants
+
+❓What are some of the least abundant?
+:::
+
+We will often compare our results against results from other researchers. In this case, we can look at the different abundances and top species, and see if it's similar to what others have found. Let's take a look at a figure from a research article below. Here, the four different bars each represent a group of participants - either healthy, or with a genital infection. Can you see how the phyla abundance seems to change between the groups?
+
+![Stacked bar charts of taxonomy relative abundances at phylum for healthy (HC), C. trachomatis (CT), vulvo-vaginal candidiasis (VVC) and bacterial vaginosis (BV) positive subjects. Ceccarani, C., Foschi, C., Parolin, C. et al. (2019). 10.1038/s41598-019-50410-x](images/phylum.png)
+
+💡 In our dataset, we have information for each of these participants on whether they delivered term or preterm. Therefore, we could plot the graph by birth outcome.
+
+```{r}
+ggplot(ps_phyla, aes(x =factor(SubjectID), y =Abundance , fill = Phylum)) +
+  facet_wrap(~factor(Outcome), scales = 'free_x')+
+  geom_bar(stat = "identity", position = "fill") +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+  guides(fill = guide_legend(reverse = FALSE, keywidth = 1, keyheight = 1, ncol = 1)) +
+  ylab("Abundance") +
+  xlab("Sample number") +
+  scale_fill_manual(values = color_set)
+```
+
+::: {.callout-caution appearance="simple" icon="false"}
+Now look at the graph with the abundance by phyla, and by birth outcome.
+
+❓ Do you think there may be differences in the microbiota between women who deliver preterm vs term?
+
+❓If so, how would you describe these differences?
+:::
+
+**Congratulations for making it to the end of today's workshop!** 🎉
+
+We hope you enjoyed learning more about the world of bioinformatics, the microbiome, and coding with R.
+
+<!--# I feel like this is a lot of material to go through for 90 mins, so maybe we will need to review some of the material, perhaps the OTU and taxonomy bits? -->
