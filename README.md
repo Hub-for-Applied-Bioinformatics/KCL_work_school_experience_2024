@@ -40,5 +40,4 @@ Previous sessions
 
 ----------------------------------------
 
-Visit the [Wiki page]() for all the material
 
