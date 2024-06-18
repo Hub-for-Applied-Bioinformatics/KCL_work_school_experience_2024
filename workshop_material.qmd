@@ -120,9 +120,9 @@ c\) Divide `number_of_bacteria` by 5
 :::
 
 ```{r}
-# Challenge 1
 #| code-fold: true
 #| results: 'hide'
+# Challenge 1
 
 number_of_bacteria <- 12 + 82
 print(number_of_bacteria)
@@ -138,7 +138,7 @@ Packages in R are collections of functions that have been developed. Many of the
 We will begin by installing the [tidyverse package](https://tidyverse.tidyverse.org/) using the code below. Note that this is quite a large package, so it may take a while to install!
 
 ```{r}
-# install.packages("tidyverse")
+install.packages("tidyverse")
 ```
 
 Once this has been installed, load the `tidyverse` package
