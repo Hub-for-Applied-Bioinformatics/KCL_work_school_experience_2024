@@ -35,7 +35,7 @@ Open up your R script and follow along with some of these exercises.
 12/3
 ```
 
-::: {.callout-important appearance="simple" icon="false"}
+::: {.callout-caution appearance="simple" icon="false"}
 🛑 **Checkpoint**
 
 Have you found and opened the `student_exercises.R` file on your computer?
@@ -332,39 +332,6 @@ ggplot(metadata, aes(x = Outcome, fill = DeliveryMode)) + geom_bar(position = "d
 
 ggplot(metadata, aes(x = Outcome, fill = Race)) + geom_bar(position = "dodge") + geom_text(aes(label = after_stat(count)), stat = 'count', position = position_dodge(0.9), vjust = -0.2) + labs(x = "Outcome", y = "Count", fill = "Race") +  scale_fill_viridis(discrete = TRUE)
 ```
-
-A boxplot is another useful plot we can use to visualise data. It helps us look at the spread and any potential skew. This is because it is divided into quartiles where:
-
--   Q0 = Minimum. Lowest data point (excluding any outliers)
-
--   Q1: Lower quartile (25th percentile). Median of the lower half of the dataset.
-
--   Q2 = Median. Middle value
-
--   Q3: Upper quartile (75th percentile). Median of the upper half of the dataset
-
--   Q4 = Maximum. Highest data point (excluding any outliers).
-
-Body mass index (BMI) is used as a measure of body weight relative height, and is calculated using the formula: \$\\frac {weight (kg)}{height (m)\^{2}}\$
-
-We could use a box plot to investigate whether there is a difference in BMI between women who deliver preterm vs term.
-
-```{r}
-metadata %>%
-  drop_na(BMI) %>%
-  ggplot(aes(x = Outcome, y = BMI, fill = Outcome)) +
-  geom_boxplot(outlier.colour = "black", outlier.shape = 8, outlier.size = 2) +
-  scale_fill_viridis(discrete = TRUE) +  
-  labs(x = "Outcome", y = "BMI (kg/m^2)", fill = "Outcome")
-```
-
-::: {.callout-caution appearance="simple" icon="false"}
-Looking at the box plot comparing BMI in women who delivered preterm vs term
-
-❓Which of the two groups appears to have a higher median BMI
-:::
-
-*A note on statistics: scientists will often define a hypothesis before conducting their research. They will also use statistical tests to test this hypothesis. This is a formal way for us to test if a difference we see is likely to be a real difference or just down to chance.*
 
 ## The human microbiome
 
