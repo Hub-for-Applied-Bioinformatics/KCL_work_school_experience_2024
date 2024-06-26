@@ -297,7 +297,14 @@ We can see from the table there were more normal spontaneous vaginal deliveries 
 Instead of using tables, we could also show this information using a bar graph. Run the code below to generate a bar graph of the same data we have shown in the table above.
 
 ```{r}
-ggplot(metadata, aes(x = Outcome, fill = DeliveryMode)) + geom_bar(position = "dodge") + geom_text(aes(label = after_stat(count)), stat = 'count', position = position_dodge(0.9), vjust = -0.2) + labs(x = "Outcome", y = "Count", fill = "Delivery") + scale_fill_viridis(discrete = TRUE)
+ggplot(
+  metadata, 
+  aes(x = Outcome, fill = DeliveryMode)) + 
+  geom_bar(position = "dodge") + 
+  geom_text(aes(label = after_stat(count)), 
+            stat = 'count', position = position_dodge(0.9), vjust = -0.2) + 
+  labs(x = "Outcome", y = "Count", fill = "Delivery") + 
+  scale_fill_viridis(discrete = TRUE)
 ```
 
 ::: {.callout-important appearance="simple" icon="false"}
@@ -323,15 +330,17 @@ a)  For the delivery mode by birth outcome plot, change the y-axis from "Count" 
 b)  Plot race by birth outcome (*Hint: there will be more than one part of the code you need to change for this*)
 :::
 
-```{r}
-#| code-fold: true
-#| results: 'hide'
+::: {.callout-tip appearance="simple" icon="false" collapse="true"}
+# Challenge 3 solution
 
-# Challenge 3
-ggplot(metadata, aes(x = Outcome, fill = DeliveryMode)) + geom_bar(position = "dodge") + geom_text(aes(label = after_stat(count)), stat = 'count', position = position_dodge(0.9), vjust = -0.2) + labs(x = "Outcome", y = "Number of deliveries", fill = "Delivery") +  scale_fill_viridis(discrete = TRUE)
-
-ggplot(metadata, aes(x = Outcome, fill = Race)) + geom_bar(position = "dodge") + geom_text(aes(label = after_stat(count)), stat = 'count', position = position_dodge(0.9), vjust = -0.2) + labs(x = "Outcome", y = "Count", fill = "Race") +  scale_fill_viridis(discrete = TRUE)
+``` r
+ggplot(metadata, aes(x = Outcome, fill = DeliveryMode)) + geom_bar(position = "dodge") + geom_text(aes(label = after_stat(count)), stat = 'count', position = position_dodge(0.9), vjust = -0.2) + labs(x = "Outcome", y = "Number of deliveries", fill = "Delivery") + scale_fill_viridis(discrete = TRUE)
 ```
+
+``` r
+ggplot(metadata, aes(x = Outcome, fill = Race)) + geom_bar(position = "dodge") + geom_text(aes(label = after_stat(count)), stat = 'count', position = position_dodge(0.9), vjust = -0.2) + labs(x = "Outcome", y = "Count", fill = "Race") + scale_fill_viridis(discrete = TRUE)
+```
+:::
 
 ## The human microbiome
 
@@ -412,13 +421,15 @@ This has combined the information we saw earlier from the metadata spreadsheet (
 For each row, we can see that there is a sample ID, which has information on abundance and phylum. We can use this to plot the the abundance of a few of the most abundant phyla in the microbiome.
 
 ```{r}
+safe_colorblind_palette <- c("#88CCEE", "#CC6677", "#DDCC77", "#661100", "#117733", "#AA4499",  "#44AA99", "#999933", "#882255",  "#6699CC", "#888888",  "#332288")
+
 ggplot(ps_phyla, aes(x =factor(SubjectID), y =Abundance , fill = Phylum)) +
   geom_bar(stat = "identity", position = "fill") +
   theme(axis.text.x = element_text(angle = 90, hjust = 1, size = 6)) +
   guides(fill = guide_legend(reverse = FALSE, keywidth = 1, keyheight = 1, ncol = 1)) +
   ylab("Abundance") +
   xlab("Sample number")+
-  scale_fill_viridis(discrete = TRUE)
+  scale_fill_manual(values = safe_colorblind_palette)
 ```
 
 Let's break down the graph above. On the x-axis we can see all of the sample numbers. Each bar represents one participant sample. The size of each colored section within the bar indicates the abundance (or amount) of that particular phylum in the sample.
@@ -451,7 +462,7 @@ ggplot(ps_phyla, aes(x =factor(SubjectID), y =Abundance , fill = Phylum)) +
   guides(fill = guide_legend(reverse = FALSE, keywidth = 1, keyheight = 1, ncol = 1)) +
   ylab("Abundance") +
   xlab("Sample number") +
-  scale_fill_viridis(discrete = TRUE)
+  scale_fill_manual(values = safe_colorblind_palette)
 ```
 
 ::: {.callout-caution appearance="simple" icon="false"}
