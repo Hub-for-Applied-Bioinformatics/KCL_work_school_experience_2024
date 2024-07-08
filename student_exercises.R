@@ -6,3 +6,9 @@
 
 # This is a comment
 print("Hello world!")
+
+# Exercise to get you started 
+2+5 
+12/3 
+
+
