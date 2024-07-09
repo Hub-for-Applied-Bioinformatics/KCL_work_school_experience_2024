@@ -24,6 +24,21 @@ Why R?
 Jiadai Mi, Amy Roberts, Flavia Flaviani, and Fewa Laleye are participanting in a work experience with the School of Life Course and Population Sciences. 
 The workshop will be based on data analysis/bioinformatics for year 11-12 students visiting King's College London for work experience.
 
+**Instructors**
+
+[Flavia Flaviani](https://www.kcl.ac.uk/people/flavia-flaviani)
+
+
+[Jia Dai Mi](https://www.kcl.ac.uk/people/jiadai-mi): 
+
+*Hello! 👋 I'm a PhD student dedicated to improving health outcomes for mothers and babies across Africa. My research focuses on understanding why some babies are delivered early (preterm birth) and exploring potential prevention methods. Using bioinformatics skills 👩🏻‍💻, I work on analysing large sets of data to identify genetic and environmental factors contributing to preterm births, as well as biomarkers that could help us predict and mitigate the risk. When I'm not working on my research, I enjoy playing board games and exploring the UK countryside with my dog 🐕.* 
+
+**Amy Roberts**
+
+
+**Fewa Laleye**
+
+
 **Date:**
 
 8th of July 2024 
