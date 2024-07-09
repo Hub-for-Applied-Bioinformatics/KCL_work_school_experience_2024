@@ -22,11 +22,15 @@ Why R?
 **Details**
 
 Jiadai Mi, Amy Roberts, Flavia Flaviani, and Fewa Laleye are participanting in a work experience with the School of Life Course and Population Sciences. 
-The workshop will be based on data analysis/bioinformatics for year 11-12 students visiting King's College London for work experience.
+The workshop will be based on data analysis/bioinformatics for year 11-12 students visiting King's College London for work experience organised by Pamela Taylor-Harris and you can read about the [Work Experience Programme here](https://www.kcl.ac.uk/school-work-experience-programme-an-interview-with-pamela-taylor-harris-slcps-technical-manager)
 
 **Instructors**
 
-[Flavia Flaviani](https://www.kcl.ac.uk/people/flavia-flaviani)
+[Flavia Flaviani](https://www.kcl.ac.uk/people/flavia-flaviani): 
+
+*I am a Senior Bioinformatician for the [Hub of Applied Bioinformatics](https://hab.sites.er.kcl.ac.uk). I have a diverse background having experience in working with a variety of Next Generation Sequencing technologies, analysis of complex genomics dataset as well as having wet lab experience gained both in hospital settings, public health, and university. Within my role I support research studies with bits of code to analyse complex dataset. 
+I am passionate about science and the environment and how they link with health. I have a non-conventional health path starting with working in the marine environment from big organisms and moving into bacteria and viruses.*  
+  
 
 
 [Jia Dai Mi](https://www.kcl.ac.uk/people/jiadai-mi): 
