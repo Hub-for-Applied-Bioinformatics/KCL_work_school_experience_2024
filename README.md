@@ -37,8 +37,9 @@ I am passionate about science and the environment and how they link with health.
 
 *Hello! 👋 I'm a PhD student dedicated to improving health outcomes for mothers and babies across Africa. My research focuses on understanding why some babies are delivered early (preterm birth) and exploring potential prevention methods. Using bioinformatics skills 👩🏻‍💻, I work on analysing large sets of data to identify genetic and environmental factors contributing to preterm births, as well as biomarkers that could help us predict and mitigate the risk. When I'm not working on my research, I enjoy playing board games and exploring the UK countryside with my dog 🐕.* 
 
-**Amy Roberts**
+[Amy Roberts](https://www.kcl.ac.uk/people/amy-roberts)
 
+*Hello! I am a Research Fellow in the Department of Twin Research & Genetic Epidemiology. My research focuses on X Chromosome Inactivation and how changes to this affects the immune system and may lead to increased risk of developing age-related diseases. I hope that my research will help improve the human health-span and reduce health inequalities. Outside of work I volunteer with an LGBTQ+ organisation and enjoy going to the pub with friends.*
 
 **Fewa Laleye**
 
